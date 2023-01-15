@@ -1,5 +1,5 @@
 // SELECT CVS
-const cvs = document.getElementById("gamecanvas");
+const cvs = document.getElementById("bird");
 const ctx = cvs.getContext("2d");
 
 // GAME VARS AND CONSTS
@@ -221,6 +221,24 @@ const gameOver = {
     
 }
 
+//CHECKPOINT SYSTEM
+var checkpoint = 0;
+var checkpoint_position = {x:0, y:0};
+
+function updateCheckpoint() {
+    if (score.value >= checkpoint + 5) {
+        checkpoint = score.value;
+        checkpoint_position = pipes.position[0];
+    }
+}
+
+function restart() {
+    score.value = checkpoint;
+    for (let i = 0; i < pipes.position.length; i++) {
+        pipes.position[i].x += 1;
+    }
+}
+
 // PIPES
 const pipes = {
     position : [],
@@ -289,6 +307,7 @@ const pipes = {
                 this.position.shift();
                 score.value += 1;
                 SCORE_S.play();
+                updateCheckpoint();
                 score.best = Math.max(score.value, score.best);
                 localStorage.setItem("best", score.best);
             }
@@ -329,6 +348,7 @@ const score= {
     
     reset : function(){
         this.value = 0;
+        restart();
     }
 }
 
