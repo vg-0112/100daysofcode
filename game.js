@@ -3,6 +3,7 @@ const cvs = document.getElementById("bird");
 const ctx = cvs.getContext("2d");
 
 // GAME VARS AND CONSTS
+let lives = 3;
 let frames = 0;
 const DEGREE = Math.PI/180;
 
@@ -70,7 +71,6 @@ cvs.addEventListener("click", function(evt){
     }
 });
 
-
 // BACKGROUND
 const bg = {
     sX : 0,
@@ -110,6 +110,21 @@ const fg = {
             this.x = (this.x - this.dx)%(this.w/2);
         }
     }
+}
+
+// LIVES
+const renderLives = {
+    sX: 276,
+    sY: 139,
+    w: 34,
+    h: 24,
+    x: 10,
+    y: 40,
+    draw : function(){
+    for (let i = 0; i < lives; i++) {
+        ctx.drawImage(sprite, this.sX, this.sY, this.w, this.h, this.x + (i * this.w), this.y, this.w, this.h);
+    }
+}
 }
 
 // BIRD
@@ -235,7 +250,7 @@ function updateCheckpoint() {
 function restart() {
     score.value = checkpoint;
     for (let i = 0; i < pipes.position.length; i++) {
-        pipes.position[i].x += 1;
+        pipes.position[i].x += 5;
     }
 }
 
@@ -290,13 +305,26 @@ const pipes = {
             // COLLISION DETECTION
             // TOP PIPE
             if(bird.x + bird.radius > p.x && bird.x - bird.radius < p.x + this.w && bird.y + bird.radius > p.y && bird.y - bird.radius < p.y + this.h){
-                state.current = state.over;
                 HIT.play();
+                state.current = state.over;
+                if(lives == 0) {
+                    checkpoint = 0;
+                    lives = 3;
+                } else {
+                    lives--;
+                }
+                
             }
             // BOTTOM PIPE
             if(bird.x + bird.radius > p.x && bird.x - bird.radius < p.x + this.w && bird.y + bird.radius > bottomPipeYPos && bird.y - bird.radius < bottomPipeYPos + this.h){
-                state.current = state.over;
                 HIT.play();
+                state.current = state.over;
+                if(lives == 0) {
+                    checkpoint = 0;
+                    lives = 3;
+                } else {
+                    lives--;
+                }
             }
             
             // MOVE THE PIPES TO THE LEFT
@@ -361,6 +389,7 @@ function draw(){
     pipes.draw();
     fg.draw();
     bird.draw();
+    renderLives.draw();
     getReady.draw();
     gameOver.draw();
     score.draw();
