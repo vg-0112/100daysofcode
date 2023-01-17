@@ -43,7 +43,7 @@ const startBtn = {
     h : 29
 }
 
-// CONTROL THE GAME
+// CONTROLS THE GAME
 cvs.addEventListener("click", function(evt){
     switch(state.current){
         case state.getReady:
@@ -60,7 +60,7 @@ cvs.addEventListener("click", function(evt){
             let clickX = evt.clientX - rect.left;
             let clickY = evt.clientY - rect.top;
             
-            // CHECK IF WE CLICK ON THE START BUTTON
+            // THIS CHECKS IF WE CLICK ON THE START BUTTON
             if(clickX >= startBtn.x && clickX <= startBtn.x + startBtn.w && clickY >= startBtn.y && clickY <= startBtn.y + startBtn.h){
                 pipes.reset();
                 bird.speedReset();
@@ -82,7 +82,7 @@ const bg = {
     
     draw : function(){
         ctx.drawImage(sprite, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h);
-        
+
         ctx.drawImage(sprite, this.sX, this.sY, this.w, this.h, this.x + this.w, this.y, this.w, this.h);
     }
     
@@ -165,7 +165,7 @@ const bird = {
     },
     
     update: function(){
-        // IF THE GAME STATE IS GET READY STATE, THE BIRD MUST FLAP SLOWLY
+        // IF THE GAME STATE IS SET TO GET READY STATE, THE BIRD MUST FLAP SLOWLY
         this.period = state.current == state.getReady ? 10 : 5;
         // WE INCREMENT THE FRAME BY 1, EACH PERIOD
         this.frame += frames%this.period == 0 ? 1 : 0;
@@ -173,7 +173,7 @@ const bird = {
         this.frame = this.frame%this.animation.length;
         
         if(state.current == state.getReady){
-            this.y = 150; // RESET POSITION OF THE BIRD AFTER GAME OVER
+            this.y = 150; // RESETS POSITION OF THE BIRD AFTER GAME OVER STATE
             this.rotation = 0 * DEGREE;
         }else{
             this.speed += this.gravity;
@@ -184,6 +184,12 @@ const bird = {
                 if(state.current == state.game){
                     state.current = state.over;
                     DIE.play();
+                    if(lives == 0) {
+                        checkpoint = 0;
+                        lives = 3;
+                    } else {
+                        lives--;
+                    }
                 }
             }
             
@@ -330,7 +336,7 @@ const pipes = {
             // MOVE THE PIPES TO THE LEFT
             p.x -= this.dx;
             
-            // if the pipes go beyond canvas, we delete them from the array
+            // IF THE PIPES GO BEYOND THE CANVAS, WE DELETE THEM FROM THE ARRAY
             if(p.x + this.w <= 0){
                 this.position.shift();
                 score.value += 1;
