@@ -5,6 +5,7 @@ const ctx = cvs.getContext("2d");
 // GAME VARS AND CONSTS
 let lives = 3;
 let frames = 0;
+let level = 1;
 const DEGREE = Math.PI/180;
 
 // LOAD SPRITE IMAGE
@@ -342,6 +343,11 @@ const pipes = {
                 score.value += 1;
                 SCORE_S.play();
                 updateCheckpoint();
+                if (score.value % 20 == 0 && score.value !== 0) {
+                    level++;
+                    if(level >5) level=5;
+                    lives = 3;
+                }
                 score.best = Math.max(score.value, score.best);
                 localStorage.setItem("best", score.best);
             }
