@@ -6,6 +6,7 @@ const ctx = cvs.getContext("2d");
 let lives = 3;
 let frames = 0;
 let level = 1;
+let pipeNumber = 0;
 const DEGREE = Math.PI/180;
 
 // LOAD SPRITE IMAGE
@@ -302,7 +303,8 @@ const pipes = {
             this.position.push({
                 x : cvs.width,
                 y : this.maxYPos * ( Math.random() + 1)
-            });
+            })
+            pipeNumber++;
         }
         for(let i = 0; i < this.position.length; i++){
             let p = this.position[i];
@@ -314,6 +316,15 @@ const pipes = {
             if(bird.x + bird.radius > p.x && bird.x - bird.radius < p.x + this.w && bird.y + bird.radius > p.y && bird.y - bird.radius < p.y + this.h){
                 HIT.play();
                 state.current = state.over;
+                if(pipeNumber % 3 == 0){
+                    alert("custom death alert 1");
+                }
+                if(pipeNumber % 3 == 1){
+                    alert("custom death alert 2");
+                }
+                if(pipeNumber % 3 == 2){
+                    alert("Custom death alert 3");
+                }
                 if(lives == 0) {
                     checkpoint = 0;
                     lives = 3;
@@ -326,6 +337,15 @@ const pipes = {
             if(bird.x + bird.radius > p.x && bird.x - bird.radius < p.x + this.w && bird.y + bird.radius > bottomPipeYPos && bird.y - bird.radius < bottomPipeYPos + this.h){
                 HIT.play();
                 state.current = state.over;
+                if(pipeNumber % 3 == 0){
+                    alert("custom death alert 1");
+                }
+                if(pipeNumber % 3 == 1){
+                    alert("custom death alert 2");
+                }
+                if(pipeNumber % 3 == 2){
+                    alert("Custom death alert 3");
+                }
                 if(lives == 0) {
                     checkpoint = 0;
                     lives = 3;
