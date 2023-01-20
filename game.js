@@ -186,6 +186,21 @@ const bird = {
                 if(state.current == state.game){
                     state.current = state.over;
                     DIE.play();
+                    if(level == 1){
+                        alert("You died on level 1");
+                    }
+                    if(level == 2){
+                        alert("You died on level 2");
+                    }
+                    if(level == 3){
+                        alert("You died on level 3");
+                    }
+                    if(level == 4){
+                        alert("You died on level 4");
+                    }
+                    if(level == 5){
+                        alert("You died on level 5");
+                    }
                     if(lives == 0) {
                         checkpoint = 0;
                         lives = 3;
