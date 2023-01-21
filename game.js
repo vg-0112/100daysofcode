@@ -186,6 +186,7 @@ const bird = {
                 if(state.current == state.game){
                     state.current = state.over;
                     DIE.play();
+                    //custom death alerts depending on the level
                     if(level == 1){
                         alert("You died on level 1");
                     }
@@ -331,6 +332,7 @@ const pipes = {
             if(bird.x + bird.radius > p.x && bird.x - bird.radius < p.x + this.w && bird.y + bird.radius > p.y && bird.y - bird.radius < p.y + this.h){
                 HIT.play();
                 state.current = state.over;
+                //custom death alerts depending on the frame
                 if(pipeNumber % 3 == 0){
                     alert("custom death alert 1");
                 }
@@ -353,6 +355,7 @@ const pipes = {
                 HIT.play();
                 state.current = state.over;
                 if(pipeNumber % 3 == 0){
+                    //custom death alerts depending on the frame
                     alert("custom death alert 1");
                 }
                 if(pipeNumber % 3 == 1){
