@@ -278,7 +278,7 @@ function restart() {
     }
 }
 
-// PIPES
+// PIPES UPDATED
 const pipes = {
     position : [],
     
