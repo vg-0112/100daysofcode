@@ -299,6 +299,7 @@ const pipes = {
     
     draw : function(){
         for(let i  = 0; i < this.position.length; i++){
+            if (level <= 5){
             let p = this.position[i];
             
             let topYPos = p.y;
@@ -308,7 +309,8 @@ const pipes = {
             ctx.drawImage(sprite, this.top.sX, this.top.sY, this.w, this.h, p.x, topYPos, this.w, this.h);  
             
             // bottom pipe
-            ctx.drawImage(sprite, this.bottom.sX, this.bottom.sY, this.w, this.h, p.x, bottomYPos, this.w, this.h);  
+            ctx.drawImage(sprite, this.bottom.sX, this.bottom.sY, this.w, this.h, p.x, bottomYPos, this.w, this.h);
+            }  
         }
     },
     
