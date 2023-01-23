@@ -13,6 +13,9 @@ const DEGREE = Math.PI/180;
 const sprite = new Image();
 sprite.src = "./sprite.png";
 
+const sprite2 = new Image();
+sprite2.src = "./sprite2.png";
+
 // LOAD SOUNDS
 const SCORE_S = new Audio();
 SCORE_S.src = "./sfx_point.wav";
@@ -102,9 +105,16 @@ const fg = {
     dx : 2,
     
     draw : function(){
+        if (level < 3){
         ctx.drawImage(sprite, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h);
         
         ctx.drawImage(sprite, this.sX, this.sY, this.w, this.h, this.x + this.w, this.y, this.w, this.h);
+        if (level > 3){
+            ctx.drawImage(sprite2, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h);
+            
+            ctx.drawImage(sprite2, this.sX, this.sY, this.w, this.h, this.x + this.w, this.y, this.w, this.h);
+            }
+        }
     },
     
     update: function(){
@@ -299,7 +309,7 @@ const pipes = {
     
     draw : function(){
         for(let i  = 0; i < this.position.length; i++){
-            if (level <= 5){
+            if (level == 1){
             let p = this.position[i];
             
             let topYPos = p.y;
@@ -310,7 +320,19 @@ const pipes = {
             
             // bottom pipe
             ctx.drawImage(sprite, this.bottom.sX, this.bottom.sY, this.w, this.h, p.x, bottomYPos, this.w, this.h);
-            }  
+            }
+            if (level > 1){
+                let p = this.position[i];
+                
+                let topYPos = p.y;
+                let bottomYPos = p.y + this.h + this.gap;
+                
+                // top pipe
+                ctx.drawImage(sprite2, this.top.sX, this.top.sY, this.w, this.h, p.x, topYPos, this.w, this.h);  
+                
+                // bottom pipe
+                ctx.drawImage(sprite2, this.bottom.sX, this.bottom.sY, this.w, this.h, p.x, bottomYPos, this.w, this.h);
+                }    
         }
     },
     
